@@ -8,12 +8,26 @@ Static landing page for **https://arkimos.com**, served by GitHub Pages from
 | Path                        | Published? | What it is |
 | --------------------------- | ---------- | ---------- |
 | `site/`                     | **yes**    | Exactly what gets served. Everything here is public. |
+| `site/index.html`           | yes        | The landing page. A self-contained bundle — React, ReactDOM and three woff2 faces inlined as base64, dc-runtime gzipped in the same manifest. Makes **zero external requests** at runtime. |
 | `site/CNAME`                | yes        | Custom domain. One bare hostname, no scheme. Do not delete — it is what keeps the custom domain pinned across deploys. |
 | `site/.nojekyll`            | yes        | Serve files as-is; skip Jekyll processing. |
-| `design/`                   | no         | Claude Design `.dc.html` sources. Kept for editing, never served. |
+| `design/support.js`         | no         | Uncompressed dc-runtime, kept as source. Not served — `index.html` carries its own gzipped copy. |
 | `.github/workflows/pages.yml` | no       | The deploy. Uploads `./site` only. |
 
 Only `site/` is uploaded, so design sources and repo docs are never exposed.
+
+## Where the page comes from
+
+`site/index.html` is **generated**, not hand-edited. The source of truth is the
+Claude Design project:
+
+<https://claude.ai/design/p/56d27562-4a66-44cb-93f0-6c1657dfb7a4>
+
+Edit there, re-export `index.html`, drop it into `site/`, push. Hand-editing the
+bundle works but the next export overwrites it.
+
+The artboard sources (`Arkimos Landing.dc.html`, `Arkimos Logo.dc.html`) live in
+that project and are not mirrored here.
 
 ## Deploying
 
