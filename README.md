@@ -59,6 +59,18 @@ git add -A && git commit -m "..." && git push
 
 Watch it at <https://github.com/aSaevar/arkimos-site/actions>.
 
+## Supply chain
+
+The workflow pins each action to a **commit SHA**, not a version tag — `@v4` is
+mutable and can be repointed at new code. The trailing comment records which
+release each SHA is. To bump one deliberately:
+
+```
+gh api repos/actions/checkout/git/ref/tags/v4 --jq .object.sha
+```
+
+(or the equivalent REST call) and replace both the SHA and the comment.
+
 ## DNS (Namecheap → arkimos.com → Advanced DNS)
 
 Apex is primary; `www` redirects to it (GitHub does the redirect automatically once
