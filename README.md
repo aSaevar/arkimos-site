@@ -24,7 +24,27 @@ Claude Design project:
 <https://claude.ai/design/p/56d27562-4a66-44cb-93f0-6c1657dfb7a4>
 
 Edit there, re-export `index.html`, drop it into `site/`, push. Hand-editing the
-bundle works but the next export overwrites it.
+export works but the next one overwrites it.
+
+### Local change to re-apply after every export
+
+The Design export links Space Grotesk from `fonts.googleapis.com`. We **self-host**
+it instead, so the page makes zero external requests (no Google, no CDN) and EEA
+visitors' IPs are never sent to a third party.
+
+After re-exporting, replace the two `fonts.googleapis.com`/`fonts.gstatic.com`
+`<link>` tags with the preload line and the three `@font-face` blocks at the top of
+the `<style>` element — copy them from the previous version of `site/index.html`.
+
+The faces live in `site/fonts/` (variable, wght 400-700, one file per subset):
+
+| File | Subset | Size | Fetched? |
+| ---- | ------ | ---- | -------- |
+| `space-grotesk-latin.woff2`     | latin      | 22 KB | yes — covers English and Icelandic |
+| `space-grotesk-latin-ext.woff2` | latin-ext  | 19 KB | only if those codepoints appear |
+| `space-grotesk-vietnamese.woff2`| vietnamese | 7 KB  | only if those codepoints appear |
+
+`unicode-range` decides: today's copy pulls only the 22 KB latin file.
 
 The artboard sources (`Arkimos Landing.dc.html`, `Arkimos Logo.dc.html`) live in
 that project and are not mirrored here.
