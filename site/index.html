@@ -1,114 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arkimos. Embedded real-time systems.</title>
-<meta name="description" content="Arkimos is an embedded engineering company. We design connected devices and write the software that runs them, from board bring-up to production firmware.">
-<meta property="og:title" content="Arkimos. Embedded real-time systems.">
-<meta property="og:description" content="An embedded engineering company. We design connected devices and write the software that runs them.">
+<meta name="color-scheme" content="light dark">
+<title>Arkimos</title>
+<meta name="description" content="Arkimos is a hardware and software company in Iceland.">
+<meta property="og:title" content="Arkimos">
+<meta property="og:description" content="Arkimos is a hardware and software company in Iceland.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://arkimos.com">
+<meta property="og:url" content="https://arkimos.com/">
 <link rel="canonical" href="https://arkimos.com/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 220'%3E%3Crect width='240' height='220' fill='%2310243a'/%3E%3Cpolygon points='120,14 220,206 20,206' fill='%231c6ea4'/%3E%3Cpolygon points='120,104 168,206 72,206' fill='%23e0a92b'/%3E%3Ccircle cx='120' cy='80' r='18' fill='%23cf4630'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#10243a" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
-<style>
-  /* Space Grotesk, self-hosted. Variable (wght 400-700), one file per subset;
-     unicode-range means only the subsets actually used are downloaded. */
-  @font-face {
-    font-family: 'Space Grotesk';
-    font-style: normal;
-    font-weight: 400 700;
-    font-display: swap;
-    src: url('fonts/space-grotesk-vietnamese.woff2') format('woff2');
-    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-  }
-  @font-face {
-    font-family: 'Space Grotesk';
-    font-style: normal;
-    font-weight: 400 700;
-    font-display: swap;
-    src: url('fonts/space-grotesk-latin-ext.woff2') format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-  }
-  @font-face {
-    font-family: 'Space Grotesk';
-    font-style: normal;
-    font-weight: 400 700;
-    font-display: swap;
-    src: url('fonts/space-grotesk-latin.woff2') format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
-  *, *::before, *::after { box-sizing: border-box; }
-  body { margin: 0; background: #10243a; }
-  a { color: #e0a92b; text-decoration: none; }
-  a:hover { color: #f2c052; }
-  .shell { min-height: 100vh; background: #10243a; color: #f5f2ec; font-family: 'Space Grotesk', system-ui, sans-serif; display: flex; flex-direction: column; padding: 28px 56px 24px; position: relative; overflow: hidden; }
-  .backdrop { position: absolute; right: -190px; bottom: -170px; opacity: 0.07; pointer-events: none; }
-  header, main, footer { position: relative; z-index: 1; }
-  header { display: flex; align-items: center; }
-  .wordmark { font-weight: 500; font-size: 20px; letter-spacing: 5px; }
-  main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px 0; max-width: 1000px; }
-  .eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 26px; font-size: 12px; font-weight: 500; letter-spacing: 2.6px; color: #8fa6bd; text-transform: uppercase; }
-  .eyebrow span { width: 7px; height: 7px; border-radius: 50%; background: #cf4630; }
-  h1 { margin: 0; font-size: clamp(44px, 4.6vw, 64px); line-height: 1.05; font-weight: 600; letter-spacing: -2.2px; text-wrap: balance; max-width: 22ch; }
-  .lede { margin: 24px 0 0; font-size: 19px; line-height: 1.6; color: #9fb4c9; max-width: 56ch; text-wrap: pretty; }
-  .caps { display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 0; max-width: 900px; }
-  .caps li { list-style: none; font-size: 13px; font-weight: 500; color: #c8d6e2; border: 1px solid rgba(159,180,201,0.28); padding: 9px 15px; }
-  ul.caps { padding: 0; }
-  .actions { display: flex; align-items: center; gap: 26px; margin-top: 32px; flex-wrap: wrap; }
-  .cta { background: #e0a92b; color: #10243a; font-size: 15px; font-weight: 600; letter-spacing: 0.4px; padding: 16px 30px; }
-  .cta:hover { background: #f2c052; color: #10243a; }
-  .note { font-size: 14px; color: #7e93a8; }
-  footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(159,180,201,0.18); padding-top: 20px; flex-wrap: wrap; gap: 12px; font-size: 13px; color: #8298ad; letter-spacing: 0.3px; }
-  @media (max-width: 620px) {
-    .shell { padding: 24px 22px 20px; }
-    h1 { letter-spacing: -1.2px; }
-    .lede { font-size: 17px; }
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="shell">
-
-  <svg class="backdrop" viewBox="0 0 240 220" width="760" height="700" aria-hidden="true">
-    <polygon points="120,14 220,206 20,206" fill="#1c9bd8"/>
-    <polygon points="120,104 168,206 72,206" fill="#e0a92b"/>
-    <circle cx="120" cy="80" r="18" fill="#cf4630"/>
-  </svg>
-
+<div class="ak-page">
   <header>
-    <svg viewBox="0 0 240 220" width="34" height="31" style="margin-right:11px" role="img" aria-label="Arkimos">
-      <polygon points="120,14 220,206 20,206" fill="#1c6ea4"/>
-      <polygon points="120,104 168,206 72,206" fill="#e0a92b"/>
-      <circle cx="120" cy="80" r="18" fill="#cf4630"/>
-    </svg>
-    <span class="wordmark">ARKIMOS</span>
+    <p class="ak-lockup">
+      <svg viewBox="20 14 200 192" aria-hidden="true" focusable="false">
+        <polygon points="120,14 220,206 20,206" fill="#1c6ea4"/>
+        <polygon points="120,104 168,206 72,206" fill="#e0a92b"/>
+        <circle cx="120" cy="80" r="18" fill="#cf4630"/>
+      </svg>
+      <span class="wordmark ak-wordmark">Arkimos</span>
+    </p>
   </header>
-
-  <main>
-    <p class="eyebrow"><span></span>Embedded systems engineering</p>
-    <h1>Real-time systems, built close to the metal.</h1>
-    <p class="lede">Arkimos is an embedded engineering company. We design connected devices and write the software that runs them, from board bring-up to production firmware.</p>
-    <ul class="caps">
-      <li>Embedded firmware</li>
-      <li>RTOS &amp; scheduling</li>
-      <li>Sensing &amp; signal processing</li>
-      <li>Low-power wireless</li>
-      <li>Hardware bring-up</li>
-      <li>Production test</li>
-    </ul>
-    <div class="actions">
-      <a class="cta" href="mailto:hello@arkimos.com">Contact us</a>
-      <span class="note">Currently heads-down. Say hello anyway.</span>
+  <main class="ak-main">
+    <div>
+      <h1 class="ak-statement display-small">A small device, and the private service behind it.</h1>
+      <p class="ak-lede lede">Arkimos is a hardware and software company in Iceland. We design the electronics, write the software and run the service ourselves. Our first product is in development and not announced yet.</p>
     </div>
+    <ul class="ak-principles">
+      <li class="ak-principle">
+        <h2 class="ak-principle-title heading">Private by design</h2>
+        <p class="ak-principle-text body">The service is built to know as little as possible about the people who use it.</p>
+      </li>
+      <li class="ak-principle">
+        <h2 class="ak-principle-title heading">No subscription</h2>
+        <p class="ak-principle-text body">One price, and nothing to pay each month.</p>
+      </li>
+      <li class="ak-principle">
+        <h2 class="ak-principle-title heading">European parts</h2>
+        <p class="ak-principle-text body">We use European components wherever we can.</p>
+      </li>
+    </ul>
+    <p class="ak-founder body">Arkimos was founded by Sævar&nbsp;S.&nbsp;Hilmarsson, who led embedded software development for low-power devices used around the world. Write to <a class="ak-link" href="mailto:hello@arkimos.com">hello@arkimos.com</a>.</p>
   </main>
-
-  <footer>
-    <span>arkimos.com</span>
-    <span>© 2026 Arkimos</span>
+  <footer class="ak-footer small">
+    <p>Arkimos ehf · Iceland</p>
+    <p>The development of our first product has received support from the Technology Development Fund (Rannís).</p>
+    <p>© 2026 Arkimos ehf</p>
   </footer>
-
 </div>
 </body>
 </html>
